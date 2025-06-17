@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -100,8 +99,8 @@ const Documents = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Legal Documents</h1>
-          <p className="text-gray-600">Access comprehensive labour laws, acts, and regulations</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Labour Laws & Acts</h1>
+          <p className="text-gray-600">Access comprehensive Indian labour laws, acts, and regulations</p>
         </div>
 
         {/* Search and Filter Section */}

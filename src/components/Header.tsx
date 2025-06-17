@@ -19,20 +19,26 @@ const Header = () => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <FileText className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">LabourHub</span>
+            <span className="text-xl font-bold text-gray-900">Easy HR India</span>
             <Badge variant="secondary" className="text-xs">Portal</Badge>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/documents" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Documents
+              Labour Laws & Acts
             </Link>
             <Link to="/jobs" className="text-gray-600 hover:text-blue-600 transition-colors">
               Jobs
             </Link>
             <Link to="/admin" className="text-gray-600 hover:text-blue-600 transition-colors">
               Admin
+            </Link>
+            <Link to="/about" className="text-gray-600 hover:text-blue-600 transition-colors">
+              About Us
+            </Link>
+            <Link to="/contact" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Contact
             </Link>
           </nav>
 
@@ -56,13 +62,19 @@ const Header = () => {
             <SheetContent>
               <div className="flex flex-col space-y-4 mt-8">
                 <Link to="/documents" className="text-lg font-medium">
-                  Documents
+                  Labour Laws & Acts
                 </Link>
                 <Link to="/jobs" className="text-lg font-medium">
                   Jobs
                 </Link>
                 <Link to="/admin" className="text-lg font-medium">
                   Admin
+                </Link>
+                <Link to="/about" className="text-lg font-medium">
+                  About Us
+                </Link>
+                <Link to="/contact" className="text-lg font-medium">
+                  Contact
                 </Link>
                 <hr className="my-4" />
                 <Button asChild variant="ghost" className="justify-start">

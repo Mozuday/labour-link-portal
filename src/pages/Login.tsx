@@ -29,7 +29,7 @@ const Login = () => {
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <FileText className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">LabourHub</span>
+            <span className="text-2xl font-bold text-gray-900">Easy HR India</span>
           </Link>
         </div>
 
@@ -127,7 +127,7 @@ const Login = () => {
           <span>•</span>
           <Link to="/terms" className="hover:underline">Terms of Service</Link>
           <span>•</span>
-          <Link to="/help" className="hover:underline">Help</Link>
+          <Link to="/contact" className="hover:underline">Contact</Link>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,15 +61,15 @@ const Index = () => {
         <div className="max-w-7xl mx-auto text-center">
           <div className="mb-8">
             <Badge variant="secondary" className="mb-4 text-blue-600 bg-blue-50">
-              Your Labour Resource Hub
+              Your HR Resource Hub
             </Badge>
             <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Access Labour Laws &<br />
-              <span className="text-blue-600">Find Opportunities</span>
+              <span className="text-blue-600">Find Opportunities in India</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Comprehensive portal for labour-related resources, legal documents, and job opportunities. 
-              Bridging the gap between legal awareness and employment.
+              Comprehensive portal for Indian labour-related resources, legal documents, and job opportunities. 
+              Bridging the gap between legal awareness and employment across India.
             </p>
           </div>
           
@@ -78,7 +77,7 @@ const Index = () => {
             <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
               <Link to="/documents">
                 <FileText className="mr-2 h-5 w-5" />
-                Browse Documents
+                Browse Labour Laws & Acts
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
@@ -99,7 +98,7 @@ const Index = () => {
               Everything You Need in One Place
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Access verified labour documents, post job opportunities, and stay informed about your rights and responsibilities.
+              Access verified labour documents, post job opportunities, and stay informed about your rights and responsibilities under Indian law.
             </p>
           </div>
           
@@ -148,8 +147,8 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Recent Documents</h2>
-              <p className="text-gray-600">Latest labour laws and regulations</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Recent Labour Laws & Acts</h2>
+              <p className="text-gray-600">Latest Indian labour laws and regulations</p>
             </div>
             <Button asChild variant="outline">
               <Link to="/documents">View All</Link>

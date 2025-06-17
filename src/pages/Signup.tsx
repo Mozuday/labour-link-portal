@@ -49,7 +49,7 @@ const Signup = () => {
             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <FileText className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">LabourHub</span>
+            <span className="text-2xl font-bold text-gray-900">Easy HR India</span>
           </Link>
         </div>
 

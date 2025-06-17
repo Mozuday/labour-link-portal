@@ -13,10 +13,10 @@ const Footer = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <FileText className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold">LabourHub</span>
+              <span className="text-xl font-bold">Easy HR India</span>
             </Link>
             <p className="text-gray-400 mb-4 max-w-md">
-              Comprehensive portal for labour-related resources and job opportunities. 
+              Comprehensive portal for labour-related resources and job opportunities in India. 
               Bridging the gap between legal awareness and employment.
             </p>
           </div>
@@ -25,7 +25,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><Link to="/documents" className="hover:text-white transition-colors">Browse Documents</Link></li>
+              <li><Link to="/documents" className="hover:text-white transition-colors">Labour Laws & Acts</Link></li>
               <li><Link to="/jobs" className="hover:text-white transition-colors">Job Opportunities</Link></li>
               <li><Link to="/admin" className="hover:text-white transition-colors">Admin Panel</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
@@ -36,7 +36,6 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
               <li><Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
@@ -47,8 +46,8 @@ const Footer = () => {
         <hr className="border-gray-800 my-8" />
         
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-400">
-          <p>&copy; 2024 LabourHub Portal. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">Built for labour awareness and employment opportunities.</p>
+          <p>&copy; 2024 Easy HR India Portal. All rights reserved.</p>
+          <p className="mt-2 md:mt-0">Built for labour awareness and employment opportunities in India.</p>
         </div>
       </div>
     </footer>
