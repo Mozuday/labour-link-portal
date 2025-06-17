@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,9 +24,9 @@ const Jobs = () => {
       id: 1,
       title: "Senior HR Manager",
       company: "Tech Solutions Inc.",
-      location: "Toronto, ON",
+      location: "Mumbai, Maharashtra",
       type: "Full-time",
-      salary: "$75,000 - $90,000",
+      salary: "₹12,00,000 - ₹15,00,000",
       description: "Lead HR initiatives, manage employee relations, and ensure compliance with labour standards.",
       postedDate: "2024-03-15",
       applicants: 25,
@@ -37,9 +36,9 @@ const Jobs = () => {
       id: 2,
       title: "Labour Relations Specialist",
       company: "Manufacturing Corp",
-      location: "Vancouver, BC",
+      location: "Bangalore, Karnataka",
       type: "Full-time",
-      salary: "$60,000 - $70,000",
+      salary: "₹8,00,000 - ₹10,00,000",
       description: "Handle collective bargaining, grievance procedures, and maintain positive labour relations.",
       postedDate: "2024-03-12",
       applicants: 18,
@@ -49,9 +48,9 @@ const Jobs = () => {
       id: 3,
       title: "Compliance Officer",
       company: "Financial Services Ltd",
-      location: "Calgary, AB",
+      location: "Delhi, NCR",
       type: "Contract",
-      salary: "$55,000 - $65,000",
+      salary: "₹7,00,000 - ₹9,00,000",
       description: "Ensure organizational compliance with labour laws and regulatory requirements.",
       postedDate: "2024-03-10",
       applicants: 32,
@@ -61,9 +60,9 @@ const Jobs = () => {
       id: 4,
       title: "Workplace Safety Coordinator",
       company: "Construction Plus",
-      location: "Edmonton, AB",
+      location: "Chennai, Tamil Nadu",
       type: "Full-time",
-      salary: "$50,000 - $60,000",
+      salary: "₹6,00,000 - ₹8,00,000",
       description: "Develop and implement safety programs, conduct training, and ensure workplace safety compliance.",
       postedDate: "2024-03-08",
       applicants: 15,
@@ -73,9 +72,9 @@ const Jobs = () => {
       id: 5,
       title: "Employment Standards Officer",
       company: "Government Agency",
-      location: "Ottawa, ON",
+      location: "Hyderabad, Telangana",
       type: "Full-time",
-      salary: "$65,000 - $75,000",
+      salary: "₹8,50,000 - ₹11,00,000",
       description: "Investigate employment standards complaints and educate employers on labour law compliance.",
       postedDate: "2024-03-05",
       applicants: 28,
@@ -85,9 +84,9 @@ const Jobs = () => {
       id: 6,
       title: "Human Resources Coordinator",
       company: "Healthcare Solutions",
-      location: "Montreal, QC",
+      location: "Pune, Maharashtra",
       type: "Part-time",
-      salary: "$35,000 - $45,000",
+      salary: "₹4,50,000 - ₹6,00,000",
       description: "Support HR operations, manage employee records, and assist with recruitment processes.",
       postedDate: "2024-03-03",
       applicants: 42,
@@ -95,7 +94,7 @@ const Jobs = () => {
     }
   ];
 
-  const locations = ["all", "Toronto, ON", "Vancouver, BC", "Calgary, AB", "Edmonton, AB", "Ottawa, ON", "Montreal, QC"];
+  const locations = ["all", "Mumbai, Maharashtra", "Bangalore, Karnataka", "Delhi, NCR", "Chennai, Tamil Nadu", "Hyderabad, Telangana", "Pune, Maharashtra"];
   const jobTypes = ["all", "Full-time", "Part-time", "Contract", "Temporary"];
 
   const filteredJobs = jobs.filter(job => {

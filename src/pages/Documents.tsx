@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,12 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Documents = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const { toast } = useToast();
 
   const documents = [
     {
@@ -26,7 +29,8 @@ const Documents = () => {
       category: "Employment Standards",
       uploadDate: "2024-03-15",
       fileSize: "2.4 MB",
-      downloads: 1250
+      downloads: 1250,
+      fileUrl: "/documents/labour-standards-act-2024.pdf"
     },
     {
       id: 2,
@@ -35,7 +39,8 @@ const Documents = () => {
       category: "Safety",
       uploadDate: "2024-03-10",
       fileSize: "1.8 MB",
-      downloads: 890
+      downloads: 890,
+      fileUrl: "/documents/workplace-safety-regulations.pdf"
     },
     {
       id: 3,
@@ -44,7 +49,8 @@ const Documents = () => {
       category: "Wages",
       uploadDate: "2024-03-05",
       fileSize: "1.2 MB",
-      downloads: 1450
+      downloads: 1450,
+      fileUrl: "/documents/minimum-wage-guidelines.pdf"
     },
     {
       id: 4,
@@ -53,7 +59,8 @@ const Documents = () => {
       category: "Equity",
       uploadDate: "2024-02-28",
       fileSize: "3.1 MB",
-      downloads: 670
+      downloads: 670,
+      fileUrl: "/documents/employment-equity-act.pdf"
     },
     {
       id: 5,
@@ -62,7 +69,8 @@ const Documents = () => {
       category: "Compensation",
       uploadDate: "2024-02-20",
       fileSize: "2.7 MB",
-      downloads: 950
+      downloads: 950,
+      fileUrl: "/documents/workers-compensation-guidelines.pdf"
     },
     {
       id: 6,
@@ -71,7 +79,8 @@ const Documents = () => {
       category: "Labour Relations",
       uploadDate: "2024-02-15",
       fileSize: "2.9 MB",
-      downloads: 720
+      downloads: 720,
+      fileUrl: "/documents/collective-bargaining-framework.pdf"
     }
   ];
 
@@ -91,6 +100,43 @@ const Documents = () => {
     const matchesCategory = selectedCategory === "all" || doc.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const handleDownload = (document: typeof documents[0]) => {
+    // In a real application, this would trigger an actual file download
+    // For now, we'll simulate the download and show a toast message
+    console.log(`Downloading: ${document.title}`);
+    
+    // Create a temporary link element for download simulation
+    const link = document.createElement('a');
+    link.href = document.fileUrl;
+    link.download = `${document.title}.pdf`;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    
+    // Attempt to trigger download (will fail in demo but shows intent)
+    try {
+      link.click();
+      toast({
+        title: "Download Started",
+        description: `Downloading ${document.title}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Download Simulated",
+        description: `In a real application, ${document.title} would be downloaded`,
+      });
+    } finally {
+      document.body.removeChild(link);
+    }
+  };
+
+  const handleView = (document: typeof documents[0]) => {
+    toast({
+      title: "Opening Document",
+      description: `Viewing ${document.title}`,
+    });
+    console.log(`Viewing: ${document.title}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -157,11 +203,19 @@ const Documents = () => {
                     <span>Size: {doc.fileSize}</span>
                   </div>
                   <div className="flex gap-2">
-                    <Button className="flex-1" size="sm">
+                    <Button 
+                      className="flex-1" 
+                      size="sm"
+                      onClick={() => handleView(doc)}
+                    >
                       <FileText className="mr-2 h-4 w-4" />
                       View
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleDownload(doc)}
+                    >
                       <Download className="mr-2 h-4 w-4" />
                       Download
                     </Button>
