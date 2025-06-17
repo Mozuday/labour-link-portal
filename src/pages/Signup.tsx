@@ -109,15 +109,15 @@ const Signup = () => {
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="user" id="user" />
-                    <Label htmlFor="user">Regular User</Label>
+                    <Label htmlFor="user" className="text-sm">Regular User (View documents & browse jobs)</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="employer" id="employer" />
-                    <Label htmlFor="employer">Employer/HR Professional</Label>
+                    <Label htmlFor="employer" className="text-sm">Employer/HR Professional (Post jobs & manage vacancies)</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="admin" id="admin" />
-                    <Label htmlFor="admin">Administrator (Requires Verification)</Label>
+                    <Label htmlFor="admin" className="text-sm">Administrator (Upload & manage labour laws)</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -202,20 +202,31 @@ const Signup = () => {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{" "}
-                <Link to="/login" className="text-blue-600 hover:underline font-medium">
-                  Sign in here
-                </Link>
+            {/* Sign In Link - More Prominent */}
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg text-center border">
+              <p className="text-sm text-gray-700 mb-2">
+                Already have an account?
               </p>
+              <Button asChild variant="outline" className="w-full">
+                <Link to="/login" className="font-medium">
+                  Sign In Here
+                </Link>
+              </Button>
             </div>
 
-            {/* Admin Verification Notice */}
+            {/* Role-specific Information */}
             {formData.accountType === "admin" && (
-              <div className="mt-6 p-4 bg-amber-50 rounded-lg">
+              <div className="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
                 <p className="text-sm text-amber-800">
-                  <strong>Administrator accounts</strong> require verification before document upload privileges are granted. You will be contacted within 24-48 hours.
+                  <strong>Administrator privileges:</strong> Upload, edit, and delete labour laws and acts. Requires verification within 24-48 hours.
+                </p>
+              </div>
+            )}
+
+            {formData.accountType === "employer" && (
+              <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-sm text-green-800">
+                  <strong>Employer privileges:</strong> Post job vacancies, manage applications, and mark positions as filled or vacant.
                 </p>
               </div>
             )}
