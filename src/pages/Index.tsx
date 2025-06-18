@@ -32,23 +32,23 @@ const Index = () => {
     {
       title: "Senior HR Manager",
       company: "Tech Solutions Inc.",
-      location: "Toronto, ON",
+      location: "Mumbai, Maharashtra",
       type: "Full-time",
-      salary: "$75,000 - $90,000"
+      salary: "₹12,00,000 - ₹15,00,000"
     },
     {
       title: "Labour Relations Specialist",
       company: "Manufacturing Corp",
-      location: "Vancouver, BC",
+      location: "Bangalore, Karnataka",
       type: "Full-time",
-      salary: "$60,000 - $70,000"
+      salary: "₹8,00,000 - ₹10,00,000"
     },
     {
       title: "Compliance Officer",
       company: "Financial Services Ltd",
-      location: "Calgary, AB",
+      location: "Delhi, NCR",
       type: "Contract",
-      salary: "$55,000 - $65,000"
+      salary: "₹7,00,000 - ₹9,00,000"
     }
   ];
 
