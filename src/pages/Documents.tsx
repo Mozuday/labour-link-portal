@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -101,15 +100,15 @@ const Documents = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleDownload = (document: typeof documents[0]) => {
+  const handleDownload = (documentItem: typeof documents[0]) => {
     // In a real application, this would trigger an actual file download
     // For now, we'll simulate the download and show a toast message
-    console.log(`Downloading: ${document.title}`);
+    console.log(`Downloading: ${documentItem.title}`);
     
     // Create a temporary link element for download simulation
     const link = document.createElement('a');
-    link.href = document.fileUrl;
-    link.download = `${document.title}.pdf`;
+    link.href = documentItem.fileUrl;
+    link.download = `${documentItem.title}.pdf`;
     link.style.display = 'none';
     document.body.appendChild(link);
     
@@ -118,24 +117,24 @@ const Documents = () => {
       link.click();
       toast({
         title: "Download Started",
-        description: `Downloading ${document.title}`,
+        description: `Downloading ${documentItem.title}`,
       });
     } catch (error) {
       toast({
         title: "Download Simulated",
-        description: `In a real application, ${document.title} would be downloaded`,
+        description: `In a real application, ${documentItem.title} would be downloaded`,
       });
     } finally {
       document.body.removeChild(link);
     }
   };
 
-  const handleView = (document: typeof documents[0]) => {
+  const handleView = (documentItem: typeof documents[0]) => {
     toast({
       title: "Opening Document",
-      description: `Viewing ${document.title}`,
+      description: `Viewing ${documentItem.title}`,
     });
-    console.log(`Viewing: ${document.title}`);
+    console.log(`Viewing: ${documentItem.title}`);
   };
 
   return (
