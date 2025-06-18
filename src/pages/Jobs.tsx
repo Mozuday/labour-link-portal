@@ -1,9 +1,10 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Clock, DollarSign, Building, Plus, Filter } from "lucide-react";
+import { Search, MapPin, Clock, IndianRupee, Building, Plus, Filter } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -196,7 +197,7 @@ const Jobs = () => {
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-1 text-lg font-semibold text-green-600 mb-1">
-                      <DollarSign className="h-4 w-4" />
+                      <IndianRupee className="h-4 w-4" />
                       {job.salary}
                     </div>
                     <Badge variant="outline">{job.applicants} applicants</Badge>
