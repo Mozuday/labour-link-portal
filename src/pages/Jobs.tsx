@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -19,6 +19,7 @@ const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+  const { toast } = useToast();
 
   const jobs = [
     {
@@ -107,6 +108,45 @@ const Jobs = () => {
     return matchesSearch && matchesLocation && matchesType;
   });
 
+  const handlePostJob = () => {
+    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to post a job",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Job Posting",
+      description: "Redirecting to job posting form...",
+    });
+    
+    // In a real app, this would navigate to a job posting form
+    console.log("Navigating to job posting form");
+  };
+
+  const handleApplyJob = (jobTitle: string) => {
+    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to apply for jobs",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Application Submitted",
+      description: `Your application for ${jobTitle} has been submitted`,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -118,7 +158,10 @@ const Jobs = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Job Opportunities</h1>
             <p className="text-gray-600">Discover career opportunities in labour relations and compliance</p>
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <Button 
+            className="bg-blue-600 hover:bg-blue-700"
+            onClick={handlePostJob}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Post a Job
           </Button>
@@ -220,7 +263,12 @@ const Jobs = () => {
                   <span className="text-sm text-gray-500">Posted on {job.postedDate}</span>
                   <div className="flex gap-2">
                     <Button variant="outline">Learn More</Button>
-                    <Button className="bg-blue-600 hover:bg-blue-700">Apply Now</Button>
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700"
+                      onClick={() => handleApplyJob(job.title)}
+                    >
+                      Apply Now
+                    </Button>
                   </div>
                 </div>
               </CardContent>

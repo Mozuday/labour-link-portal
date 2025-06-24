@@ -101,35 +101,38 @@ const Documents = () => {
   });
 
   const handleDownload = (documentItem: typeof documents[0]) => {
-    // In a real application, this would trigger an actual file download
-    // For now, we'll simulate the download and show a toast message
-    console.log(`Downloading: ${documentItem.title}`);
+    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
     
-    // Create a temporary link element for download simulation
-    const link = document.createElement('a');
-    link.href = documentItem.fileUrl;
-    link.download = `${documentItem.title}.pdf`;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    
-    // Attempt to trigger download (will fail in demo but shows intent)
-    try {
-      link.click();
+    if (!isLoggedIn) {
       toast({
-        title: "Download Started",
-        description: `Downloading ${documentItem.title}`,
+        title: "Authentication Required",
+        description: "Please sign in to download documents",
+        variant: "destructive",
       });
-    } catch (error) {
-      toast({
-        title: "Download Simulated",
-        description: `In a real application, ${documentItem.title} would be downloaded`,
-      });
-    } finally {
-      document.body.removeChild(link);
+      return;
     }
+
+    // Simulate download
+    toast({
+      title: "Download Started",
+      description: `Downloading ${documentItem.title}`,
+    });
+    
+    console.log(`Downloading: ${documentItem.title}`);
   };
 
   const handleView = (documentItem: typeof documents[0]) => {
+    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to view documents",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "Opening Document",
       description: `Viewing ${documentItem.title}`,

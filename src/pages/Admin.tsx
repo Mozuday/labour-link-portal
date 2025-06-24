@@ -19,6 +19,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AuthGuard from "@/components/AuthGuard";
@@ -27,6 +28,8 @@ const Admin = () => {
   const [documentTitle, setDocumentTitle] = useState("");
   const [documentDescription, setDocumentDescription] = useState("");
   const [documentCategory, setDocumentCategory] = useState("");
+  const [isPublishing, setIsPublishing] = useState(false);
+  const { toast } = useToast();
 
   const recentDocuments = [
     { title: "Labour Standards Act 2024", category: "Employment Standards", status: "Published", date: "2024-03-15" },
@@ -46,6 +49,54 @@ const Admin = () => {
     { label: "Registered Users", value: "2,340", icon: Users, color: "purple" },
     { label: "Downloads", value: "8,950", icon: Upload, color: "orange" },
   ];
+
+  const handlePublishDocument = async () => {
+    if (!documentTitle || !documentCategory || !documentDescription) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsPublishing(true);
+
+    // Simulate document publishing
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    toast({
+      title: "Document Published Successfully",
+      description: `${documentTitle} has been published and is now available for download`,
+    });
+
+    // Clear form
+    setDocumentTitle("");
+    setDocumentDescription("");
+    setDocumentCategory("");
+    setIsPublishing(false);
+  };
+
+  const handleSaveDraft = async () => {
+    if (!documentTitle) {
+      toast({
+        title: "Validation Error",
+        description: "Please enter a document title",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Draft Saved",
+      description: `${documentTitle} has been saved as draft`,
+    });
+
+    // Clear form
+    setDocumentTitle("");
+    setDocumentDescription("");
+    setDocumentCategory("");
+  };
 
   return (
     <AuthGuard>
@@ -150,11 +201,17 @@ const Admin = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700"
+                      onClick={handlePublishDocument}
+                      disabled={isPublishing}
+                    >
                       <Plus className="mr-2 h-4 w-4" />
-                      Publish Document
+                      {isPublishing ? "Publishing..." : "Publish Document"}
                     </Button>
-                    <Button variant="outline">Save as Draft</Button>
+                    <Button variant="outline" onClick={handleSaveDraft}>
+                      Save as Draft
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
