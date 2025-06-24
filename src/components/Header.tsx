@@ -2,14 +2,49 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Briefcase, Users, Menu } from "lucide-react";
+import { FileText, Briefcase, Users, Menu, LogOut, User } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from "react";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("userLoggedIn") === "true";
+    const name = localStorage.getItem("userName") || localStorage.getItem("userEmail") || "User";
+    setIsLoggedIn(loggedIn);
+    setUserName(name);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("rememberUser");
+    
+    setIsLoggedIn(false);
+    setUserName("");
+    
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out",
+    });
+  };
+
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4">
@@ -44,12 +79,31 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button asChild variant="ghost">
-              <Link to="/login">Sign In</Link>
-            </Button>
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+            {isLoggedIn ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2">
+                    <User className="h-4 w-4" />
+                    <span>{userName}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button asChild variant="ghost">
+                  <Link to="/login">Sign In</Link>
+                </Button>
+                <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -77,12 +131,24 @@ const Header = () => {
                   Contact
                 </Link>
                 <hr className="my-4" />
-                <Button asChild variant="ghost" className="justify-start">
-                  <Link to="/login">Sign In</Link>
-                </Button>
-                <Button asChild className="justify-start">
-                  <Link to="/signup">Sign Up</Link>
-                </Button>
+                {isLoggedIn ? (
+                  <div className="space-y-3">
+                    <p className="text-sm text-gray-600">Logged in as: {userName}</p>
+                    <Button onClick={handleLogout} variant="outline" className="justify-start w-full">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <Button asChild variant="ghost" className="justify-start">
+                      <Link to="/login">Sign In</Link>
+                    </Button>
+                    <Button asChild className="justify-start">
+                      <Link to="/signup">Sign Up</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </SheetContent>
           </Sheet>

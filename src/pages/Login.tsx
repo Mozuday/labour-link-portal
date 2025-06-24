@@ -1,23 +1,68 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FileText, Eye, EyeOff } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", { email, password, rememberMe });
+    setIsLoading(true);
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Simple validation
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    // Mock authentication - in real app, this would be API call
+    if (email && password.length >= 6) {
+      // Store user session
+      localStorage.setItem("userLoggedIn", "true");
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userRole", "user"); // Default role
+      
+      if (rememberMe) {
+        localStorage.setItem("rememberUser", "true");
+      }
+
+      toast({
+        title: "Success!",
+        description: "You have been logged in successfully",
+      });
+
+      // Redirect to home page
+      navigate("/");
+    } else {
+      toast({
+        title: "Invalid Credentials",
+        description: "Please check your email and password",
+        variant: "destructive",
+      });
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -52,6 +97,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={isLoading}
                 />
               </div>
 
@@ -65,6 +111,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -72,6 +119,7 @@ const Login = () => {
                     size="sm"
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 h-auto p-1"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4 text-gray-500" />
@@ -88,6 +136,7 @@ const Login = () => {
                     id="remember"
                     checked={rememberMe}
                     onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                    disabled={isLoading}
                   />
                   <Label htmlFor="remember" className="text-sm">
                     Remember me
@@ -98,8 +147,12 @@ const Login = () => {
                 </Link>
               </div>
 
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                Sign In
+              <Button 
+                type="submit" 
+                className="w-full bg-blue-600 hover:bg-blue-700"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 

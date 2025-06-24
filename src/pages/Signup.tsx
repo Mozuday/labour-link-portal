@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FileText, Eye, EyeOff } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -21,19 +22,72 @@ const Signup = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    // Validation
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast({
+        title: "Password Mismatch",
+        description: "Passwords do not match",
+        variant: "destructive",
+      });
+      setIsLoading(false);
       return;
     }
+
     if (!formData.agreeToTerms) {
-      alert("Please agree to the terms and conditions");
+      toast({
+        title: "Terms Required",
+        description: "Please agree to the terms and conditions",
+        variant: "destructive",
+      });
+      setIsLoading(false);
       return;
     }
-    // Handle signup logic here
-    console.log("Signup attempt:", formData);
+
+    if (formData.password.length < 6) {
+      toast({
+        title: "Weak Password",
+        description: "Password must be at least 6 characters long",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Mock user creation - in real app, this would be API call
+    try {
+      // Store user session
+      localStorage.setItem("userLoggedIn", "true");
+      localStorage.setItem("userEmail", formData.email);
+      localStorage.setItem("userRole", formData.accountType);
+      localStorage.setItem("userName", `${formData.firstName} ${formData.lastName}`);
+
+      toast({
+        title: "Account Created!",
+        description: `Welcome ${formData.firstName}! Your ${formData.accountType} account has been created successfully.`,
+      });
+
+      // Redirect to home page
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
+
+    setIsLoading(false);
   };
 
   const updateFormData = (field: string, value: string | boolean) => {
@@ -73,6 +127,7 @@ const Signup = () => {
                     value={formData.firstName}
                     onChange={(e) => updateFormData("firstName", e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="space-y-2">
@@ -83,6 +138,7 @@ const Signup = () => {
                     value={formData.lastName}
                     onChange={(e) => updateFormData("lastName", e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -97,6 +153,7 @@ const Signup = () => {
                   value={formData.email}
                   onChange={(e) => updateFormData("email", e.target.value)}
                   required
+                  disabled={isLoading}
                 />
               </div>
 
@@ -106,6 +163,7 @@ const Signup = () => {
                 <RadioGroup
                   value={formData.accountType}
                   onValueChange={(value) => updateFormData("accountType", value)}
+                  disabled={isLoading}
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="user" id="user" />
@@ -133,6 +191,7 @@ const Signup = () => {
                     value={formData.password}
                     onChange={(e) => updateFormData("password", e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -140,6 +199,7 @@ const Signup = () => {
                     size="sm"
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 h-auto p-1"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4 text-gray-500" />
@@ -161,6 +221,7 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={(e) => updateFormData("confirmPassword", e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -168,6 +229,7 @@ const Signup = () => {
                     size="sm"
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 h-auto p-1"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    disabled={isLoading}
                   >
                     {showConfirmPassword ? (
                       <EyeOff className="h-4 w-4 text-gray-500" />
@@ -184,6 +246,7 @@ const Signup = () => {
                   id="terms"
                   checked={formData.agreeToTerms}
                   onCheckedChange={(checked) => updateFormData("agreeToTerms", checked as boolean)}
+                  disabled={isLoading}
                 />
                 <Label htmlFor="terms" className="text-sm leading-5">
                   I agree to the{" "}
@@ -197,8 +260,12 @@ const Signup = () => {
                 </Label>
               </div>
 
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                Create Account
+              <Button 
+                type="submit" 
+                className="w-full bg-blue-600 hover:bg-blue-700"
+                disabled={isLoading}
+              >
+                {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
