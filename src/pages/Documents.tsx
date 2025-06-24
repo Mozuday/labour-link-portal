@@ -101,18 +101,7 @@ const Documents = () => {
   });
 
   const handleDownload = (documentItem: typeof documents[0]) => {
-    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-    
-    if (!isLoggedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to download documents",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Simulate download
+    // Simulate download without authentication check
     toast({
       title: "Download Started",
       description: `Downloading ${documentItem.title}`,
@@ -122,17 +111,7 @@ const Documents = () => {
   };
 
   const handleView = (documentItem: typeof documents[0]) => {
-    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-    
-    if (!isLoggedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to view documents",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    // View document without authentication check
     toast({
       title: "Opening Document",
       description: `Viewing ${documentItem.title}`,

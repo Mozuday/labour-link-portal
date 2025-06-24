@@ -130,21 +130,13 @@ const Jobs = () => {
   };
 
   const handleApplyJob = (jobTitle: string) => {
-    const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-    
-    if (!isLoggedIn) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to apply for jobs",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    // Apply for job without authentication check
     toast({
-      title: "Application Submitted",
-      description: `Your application for ${jobTitle} has been submitted`,
+      title: "Application Process",
+      description: `Redirecting to application form for ${jobTitle}`,
     });
+    
+    console.log(`Applying for job: ${jobTitle}`);
   };
 
   return (
